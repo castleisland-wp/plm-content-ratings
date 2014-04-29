@@ -25,8 +25,6 @@ Contents
 The standard syntax is a comma-delimited series of label and rating pairs, each with a label and a 
 number, separated by a colon.
 
-The example above would output something like this, only prettier. 
-
 
 Attributes
 ==========
@@ -62,4 +60,4 @@ You can also do it this way:
 [simple_star_rating sprite="&amp;#x2605;"]4/5[/simple_star_rating]
 
 The short code will use the number after the slash as the maximum.  If you use this and the attribute, the 
-number after the slash will overrise the attribute.
+number after the slash will override the attribute.
