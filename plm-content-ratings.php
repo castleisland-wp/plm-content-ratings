@@ -49,12 +49,12 @@ function plm_array_to_stack($theArray, $exclude = FALSE, $sprite='&#x2589;')
 	return $returnStack;
 }
 
-function plm_output_row($label, $value, $exclude = FALSE, $sprite='&#x2589;') 
+function plm_output_row($label, $value, $exclude = FALSE, $sprite='&#x2589;', $max=5) 
 {
 
 	$returnThis = '<tr class="r_row" ><td class="r_row_label">' . $label . ': </td><td>';
 
-	$returnThis .= plm_output_rating($sprite, $value, 5).  '</td></tr>';
+	$returnThis .= plm_output_rating($sprite, $value, $max).  '</td></tr>';
 
 	if (!($exclude AND ($value==0))) {
 		return $returnThis;
@@ -63,11 +63,11 @@ function plm_output_row($label, $value, $exclude = FALSE, $sprite='&#x2589;')
 	}
 } 
 
-function plm_output_stack($label, $value, $exclude = FALSE, $sprite = '&#x2589;')
+function plm_output_stack($label, $value, $exclude = FALSE, $sprite = '&#x2589;', $max=5)
 {	
 	$returnThis = '<div class="plm_stack_label">' . $label . '</div><div class="plm_stack_rating">';
 
-	$returnThis .= plm_output_rating($sprite, $value, 5) . '</div>';	
+	$returnThis .= plm_output_rating($sprite, $value, $max) . '</div>';	
 
 	if (!($exclude AND ($value == 0))) {
 		return $returnThis;
@@ -101,13 +101,21 @@ function plm_stack($atts, $content)
 {
 	extract(shortcode_atts(array(
 		'sprite' => '&#x2589;',
-		'no_zero' => 'no'
+		'no_zero' => 'no',
+		'max' => '5',
 		),
 		 $atts, 
 		 'rating_stack' 
 		 )
 	);
+	//if max is not a number, reset it to 5.
+	if (!is_numeric($max)) {
+		$max = 5;
+	} else {
+		$max = intval($max);
+	}
 
+	//test possible values of $no_zero.  If true exclude zero values from stack.
 	switch ( strtolower( $no_zero )  ) {
 			case 'yes':
 			case 'true':
@@ -118,11 +126,14 @@ function plm_stack($atts, $content)
 			default:
 				$exclude = FALSE;
 				break;
-		}	
+	}
+	//Past $content to array parser.
 	$theRatings = plm_parse_array(html_entity_decode($content));
 
+	// if return value is not false, output the rating stack, otherwise
+	// return the original $content.
 	if(!$theRatings) {
-		return '<p>'. $content . '</p>';
+		return '<p>'. html_entity_decode($content) . '</p>';
 	} else {
 		return '<div class="plm_rating_stack_container">' . plm_array_to_stack($theRatings, $exclude, $sprite) . '</div>';
 	}
@@ -134,13 +145,22 @@ function plm_rtable($atts, $content)
 {
 	extract(shortcode_atts(array(
 		'sprite' => '&#x2589;',
-		'no_zero' => 'no'
+		'no_zero' => 'no',
+		'max' => '5',
 		),
 		 $atts, 
 		 'rating_table' 
 		 )
 	);
 	
+	//if max is not a number, reset it to 5.
+	if (!is_numeric($max)) {
+		$max = 5;
+	} else {
+		$max = intval($max);
+	}
+
+	//test possible values of $no_zero.  If true exclude zero values from stack.
 	switch ( strtolower( $no_zero )  ) {
 			case 'yes':
 			case 'true':
@@ -151,9 +171,13 @@ function plm_rtable($atts, $content)
 			default:
 				$exclude = FALSE;
 				break;
-		}	
-
+	}
+		
+	//Past $content to array parser.
 	$theRatings = plm_parse_array(html_entity_decode($content));
+
+	// if return value is not false, output the rating stack, otherwise
+	// return the original $content.
 
 	if(!$theRatings) {
 		return '<p>'. $content . '</p>';
