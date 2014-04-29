@@ -1,0 +1,67 @@
+@import "compass";
+
+table.plm_rating_table {
+	@include box-shadow(3px 3px 6px 0 #444);
+	border:2px solid black;
+	tr.r_row {
+		.r_row_label {
+			//max-width: 25px;
+			padding: 0 3px;
+			background-color: black;
+			text-align: right;
+			color: white;
+		}
+		td {
+			border-bottom: 1px solid black;
+			border-right: 1px solid black;
+			&:last-of-type{
+				border-right: none;
+			}
+			.plm_rated {
+				color: #F00;
+			}
+			.plm_filler {
+				color: #eee;
+			}
+		}
+		&:last-of-type {
+			td {
+				border-bottom: none;
+			}
+		}
+	}
+}
+
+.plm_rating_container {
+	width: 100px;
+	float: right;
+	margin: 0 0 1em 1em;
+}
+
+.plm_rating_stack_container {
+	@extend .plm_rating_container;
+
+	div.plm_stack_label {
+		text-align: center;
+		border-bottom: 1px solid #666;
+	}
+	div.plm_stack_rating {
+		text-align: center;
+		.plm_rated { color: #f00;}
+		.plm_filler { color: #eee;}
+	}
+}
+
+.plm_rating_table_container {
+	@extend .plm_rating_container;
+}
+
+.plm_star_rating {
+	.plm_rated {
+		color: #444488;
+	}
+
+	.plm_filler {
+		color: #AAAAFF;
+	}
+}

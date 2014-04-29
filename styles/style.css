@@ -1,0 +1,69 @@
+/* line 3, style.scss */
+table.plm_rating_table {
+  -moz-box-shadow: 3px 3px 6px 0 #444444;
+  -webkit-box-shadow: 3px 3px 6px 0 #444444;
+  box-shadow: 3px 3px 6px 0 #444444;
+  border: 2px solid black;
+}
+/* line 7, style.scss */
+table.plm_rating_table tr.r_row .r_row_label {
+  padding: 0 3px;
+  background-color: black;
+  text-align: right;
+  color: white;
+}
+/* line 14, style.scss */
+table.plm_rating_table tr.r_row td {
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
+/* line 17, style.scss */
+table.plm_rating_table tr.r_row td:last-of-type {
+  border-right: none;
+}
+/* line 20, style.scss */
+table.plm_rating_table tr.r_row td .plm_rated {
+  color: #F00;
+}
+/* line 23, style.scss */
+table.plm_rating_table tr.r_row td .plm_filler {
+  color: #eee;
+}
+/* line 28, style.scss */
+table.plm_rating_table tr.r_row:last-of-type td {
+  border-bottom: none;
+}
+
+/* line 35, style.scss */
+.plm_rating_container, .plm_rating_stack_container, .plm_rating_table_container {
+  width: 100px;
+  float: right;
+  margin: 0 0 1em 1em;
+}
+
+/* line 44, style.scss */
+.plm_rating_stack_container div.plm_stack_label {
+  text-align: center;
+  border-bottom: 1px solid #666;
+}
+/* line 48, style.scss */
+.plm_rating_stack_container div.plm_stack_rating {
+  text-align: center;
+}
+/* line 50, style.scss */
+.plm_rating_stack_container div.plm_stack_rating .plm_rated {
+  color: #f00;
+}
+/* line 51, style.scss */
+.plm_rating_stack_container div.plm_stack_rating .plm_filler {
+  color: #eee;
+}
+
+/* line 60, style.scss */
+.plm_star_rating .plm_rated {
+  color: #444488;
+}
+/* line 64, style.scss */
+.plm_star_rating .plm_filler {
+  color: #AAAAFF;
+}
