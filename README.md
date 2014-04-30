@@ -1,33 +1,29 @@
-Paul's Content Rating shortcodes.
+#Paul's Content Rating Shortcodes.
 
 This plug-in lets you insert boxes with bar graphs giving ratings for anything you can think
 of. You can include ratings into product reviews, movie reviews, take your pick.
 
 There are three basic short codes you can use.
 
-Rating Stack
-============
+##Rating Stack
 
 This shortcode outputs the ratings as a stack of labels over ratings.
 
 [rating_stack max="%n" sprite="&amp;#x2589;" no_zero="false"]Label1:Rating1,Label2:Rating2[/rating_stack]
 
-Rating Table
-============
+##Rating Table
+
 This shortcode outputs content between the shortcode tags as a table with labels as row labels.
 
 [rating_table max="5" sprite="&amp;#x2589;" no_zero="false"]Label1:4,Label2:3[/rating_table]
 
-
-Contents
-========
+###Contents
 
 The standard syntax is a comma-delimited series of label and rating pairs, each with a label and a 
 number, separated by a colon.
 
 
-Attributes
-==========
+###Attributes
 
 Both shortcodes have the same attributes.
 
@@ -42,8 +38,7 @@ no_zero:	If set to "true" or "yes," then the shortcode will not output any row. 
 
 
 
-Simple Star Rating
-==================
+##Simple Star Rating
 
 This shortcode outputs a graphical star rating based on the contents.
 
