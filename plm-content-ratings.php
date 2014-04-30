@@ -224,4 +224,21 @@ function plm_content_rating_styles() {
 }
 add_action('wp_enqueue_scripts', 'plm_content_rating_styles');
 
+// Add Quicktags
+function plm_custom_quicktags() {
+
+	if ( wp_script_is( 'quicktags' ) ) {
+	?>
+	<script type="text/javascript">
+	QTags.addButton( 'plm_rstack', 'Rating Stack', '[rating_stack]', '[/rating_stack', '', 'Rating Stack', 141 );
+	QTags.addButton( 'plm_rtable', 'Rating Table', '[rating_table]', '[/rating_table]', '', 'Rating Table', 142 );
+	QTags.addButton( 'plm_star', 'Star Rating', '[simple_star_rating]', '[/simple_star_rating]', '', 'Star Rating', 143 );
+	</script>
+	<?php
+	}
+
+}
+
+// Hook into the 'admin_print_footer_scripts' action
+add_action( 'admin_print_footer_scripts', 'plm_custom_quicktags' );
 ?>
