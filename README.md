@@ -7,7 +7,7 @@ There are three basic short codes you can use.
 
 ##Rating Stack
 
-![alt text](https://castleisland-wp.github.com/plm-content-ratings/images/rating-stack.png)
+![alt text](images/rating-stack.png)
 
 This shortcode outputs the ratings as a stack of labels over ratings.
 
