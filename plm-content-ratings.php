@@ -10,6 +10,9 @@ Author URI: http://www.paulmcelligott.com
 License: GPL2
 */
 
+// ** Function for basic parsing on shortcode content into an array, based on a regular
+// ** expression.
+
 function plm_parse_array($the_text) 
 {
 	$pattern = '%([\w\s&\-\.]+)[:,|/]{1}(\d+)([,|/:]?)%';
@@ -27,6 +30,9 @@ function plm_parse_array($the_text)
 	}
 }
 
+// ** Walks through the array, feeds each key=>value pair to the table row function.
+// ** Adds return value to string var, then returns string.
+
 function plm_array_to_rows ($theArray, $exclude = FALSE, $sprite='&#x2589;') 
 {
 	$returnRows = '';
@@ -38,6 +44,9 @@ function plm_array_to_rows ($theArray, $exclude = FALSE, $sprite='&#x2589;')
 	return $returnRows;
 }
 
+// ** Walks through the array, feeds each key=>value pair to the stack function.
+// ** Adds return value to string var, then returns string.
+
 function plm_array_to_stack($theArray, $exclude = FALSE, $sprite='&#x2589;')
 {
 	$returnStack = '';
@@ -48,6 +57,10 @@ function plm_array_to_stack($theArray, $exclude = FALSE, $sprite='&#x2589;')
 
 	return $returnStack;
 }
+
+// ** Returns a table row based on input $label and $value passed to output_row
+// ** function. If $exclude is TRUE and $value == 0, then function returns a 
+// ** blank string.
 
 function plm_output_row($label, $value, $exclude = FALSE, $sprite='&#x2589;', $max=5) 
 {
@@ -63,6 +76,10 @@ function plm_output_row($label, $value, $exclude = FALSE, $sprite='&#x2589;', $m
 	}
 } 
 
+// ** Returns a stack based on input $label and $value passed to output_row
+// ** function. If $exclude is TRUE and $value == 0, then function returns a 
+// ** blank string.
+
 function plm_output_stack($label, $value, $exclude = FALSE, $sprite = '&#x2589;', $max=5)
 {	
 	$returnThis = '<div class="plm_stack_label">' . $label . '</div><div class="plm_stack_rating">';
@@ -75,6 +92,10 @@ function plm_output_stack($label, $value, $exclude = FALSE, $sprite = '&#x2589;'
 		return '';
 	}
 }
+
+// ** Returns a string of <span> elements, with appropriate formatting, based on $value. Will return a 
+// ** number of rated spans equal to $value, then return a number of filler spans equal to 
+// ** $max - $value.
 
 function plm_output_rating( $sprite, $value, $max = 5 ) 
 {
@@ -97,6 +118,15 @@ function plm_output_rating( $sprite, $value, $max = 5 )
 	return $returnThis;
 }
 
+// ** Shortcode function for rating stack. Allows three attributes.
+//
+// ** $sprite 	=>	Allows user to change character used in displaying ratings.
+// ** $no_zero	=>	If 'yes' or 'true,' function will exclude all zero values.
+// ** $max 		=>	Sets maximum rating value. Each value will be $value out of 
+// **				$max.
+// **
+// ** If $content is not correctly formmatted, return original content string var.
+
 function plm_stack($atts, $content)
 {
 	extract(shortcode_atts(array(
@@ -108,14 +138,17 @@ function plm_stack($atts, $content)
 		 'rating_stack' 
 		 )
 	);
-	//if max is not a number, reset it to 5.
+
+// ** if max is not a number, reset it to 5.
+
 	if (!is_numeric($max)) {
 		$max = 5;
 	} else {
 		$max = intval($max);
 	}
 
-	//test possible values of $no_zero.  If true exclude zero values from stack.
+// ** test possible values of $no_zero.  If true exclude zero values from stack.
+
 	switch ( strtolower( $no_zero )  ) {
 			case 'yes':
 			case 'true':
@@ -127,11 +160,12 @@ function plm_stack($atts, $content)
 				$exclude = FALSE;
 				break;
 	}
-	//Past $content to array parser.
+// ** Pass $content to array parser.
 	$theRatings = plm_parse_array(html_entity_decode($content));
 
-	// if return value is not false, output the rating stack, otherwise
-	// return the original $content.
+// ** if return value is not false, output the rating stack, otherwise
+// ** return the original $content.
+
 	if(!$theRatings) {
 		return '<p>'. html_entity_decode($content) . '</p>';
 	} else {
@@ -140,6 +174,16 @@ function plm_stack($atts, $content)
 }
 
 add_shortcode('rating_stack', 'plm_stack');
+
+
+// ** Shortcode function for rating table. Allows three attributes.
+//
+// ** $sprite 	=>	Allows user to change character used in displaying ratings.
+// ** $no_zero	=>	If 'yes' or 'true,' function will exclude all zero values.
+// ** $max 		=>	Sets maximum rating value. Each value will be $value out of 
+// **				$max.
+// **
+// ** If $content is not correctly formmatted, return original content string var.
 
 function plm_rtable($atts, $content)
 {
@@ -153,14 +197,15 @@ function plm_rtable($atts, $content)
 		 )
 	);
 	
-	//if max is not a number, reset it to 5.
+// ** if max is not a number, reset it to 5.
 	if (!is_numeric($max)) {
 		$max = 5;
 	} else {
 		$max = intval($max);
 	}
 
-	//test possible values of $no_zero.  If true exclude zero values from stack.
+// ** test possible values of $no_zero.  If true exclude zero values from stack.
+
 	switch ( strtolower( $no_zero )  ) {
 			case 'yes':
 			case 'true':
@@ -173,11 +218,11 @@ function plm_rtable($atts, $content)
 				break;
 	}
 		
-	//Past $content to array parser.
+// ** Past $content to array parser.
 	$theRatings = plm_parse_array(html_entity_decode($content));
 
-	// if return value is not false, output the rating stack, otherwise
-	// return the original $content.
+// ** if return value is not false, output the rating stack, otherwise
+// ** return the original $content.
 
 	if(!$theRatings) {
 		return '<p>'. $content . '</p>';
@@ -187,6 +232,15 @@ function plm_rtable($atts, $content)
 }
 
 add_shortcode('rating_table', 'plm_rtable');
+
+// ** Star rating short code function. Returns a number of stars out of $max. If $content is 4
+// ** and $max is 5, will return four stars formatted as "rated" and one formatted as "filler."
+// 
+// ** There are two ways to set $max. 1) as an atrribute of the short code or as the second half 
+// ** of a $value/$max pair within the contents.
+//
+// ** If $max present both attribute and content, $content overrides the attribute. If $content 
+// ** does not match expected format, returns a rating based on zero.
 
 function plm_star_rating($atts, $content) {
 
