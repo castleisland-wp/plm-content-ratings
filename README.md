@@ -9,13 +9,17 @@ There are three basic short codes you can use.
 
 This shortcode outputs the ratings as a stack of labels over ratings.
 
+```
 [rating_stack max="%n" sprite="&amp;#x2589;" no_zero="false"]Label1:Rating1,Label2:Rating2[/rating_stack]
+```
 
 ##Rating Table
 
 This shortcode outputs content between the shortcode tags as a table with labels as row labels.
 
+```
 [rating_table max="5" sprite="&amp;#x2589;" no_zero="false"]Label1:4,Label2:3[/rating_table]
+```
 
 ###Contents
 
@@ -42,7 +46,9 @@ no_zero:	If set to "true" or "yes," then the shortcode will not output any row. 
 
 This shortcode outputs a graphical star rating based on the contents.
 
+```
 [simple_star_rating sprite="&amp;#x2605;" max="5"]4[/simple_star_rating]
+```
 
 max:		The top rating value, default: 5. If a rating exceeds this maximum, the final output will 
 			use the maximum.
@@ -52,7 +58,9 @@ sprite:		The html entity for the character used in the grid. The default will be
 
 You can also do it this way:
 
+```
 [simple_star_rating sprite="&amp;#x2605;"]4/5[/simple_star_rating]
+```
 
 The short code will use the number after the slash as the maximum.  If you use this and the attribute, the 
 number after the slash will override the attribute.
