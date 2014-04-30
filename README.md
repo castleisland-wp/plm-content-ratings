@@ -7,6 +7,8 @@ There are three basic short codes you can use.
 
 ##Rating Stack
 
+!(/images/rating-stack.png)
+
 This shortcode outputs the ratings as a stack of labels over ratings.
 
 ```
@@ -14,6 +16,8 @@ This shortcode outputs the ratings as a stack of labels over ratings.
 ```
 
 ##Rating Table
+
+!(/images/rating_table.png)
 
 This shortcode outputs content between the shortcode tags as a table with labels as row labels.
 
@@ -43,6 +47,8 @@ no_zero:	If set to "true" or "yes," then the shortcode will not output any row. 
 
 
 ##Simple Star Rating
+
+!(/images/star-rating.png)
 
 This shortcode outputs a graphical star rating based on the contents.
 
