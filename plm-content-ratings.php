@@ -10,6 +10,11 @@ Author URI: http://www.paulmcelligott.com
 License: GPL2
 */
 
+//	define(__ROOT__, plugin_dir_path(__FILE__));
+
+include(plugin_dir_path(__FILE__) . '/plm-content-ratings-settings.php');
+
+
 // ** Function for basic parsing on shortcode content into an array, based on a regular
 // ** expression.
 
@@ -130,7 +135,7 @@ function plm_output_rating( $sprite, $value, $max = 5 )
 function plm_stack($atts, $content)
 {
 	extract(shortcode_atts(array(
-		'sprite' => '&#x2589;',
+		'sprite' => '',
 		'no_zero' => 'no',
 		'max' => '5',
 		),
@@ -139,6 +144,13 @@ function plm_stack($atts, $content)
 		 )
 	);
 
+// ** if sprite is not set, use the default.
+
+	if ($sprite == '') 
+	{
+		$sprite = '&#' . get_option('plm_default_rating_sprite') . ';';
+	}
+	
 // ** if max is not a number, reset it to 5.
 
 	if (!is_numeric($max)) {
@@ -188,7 +200,7 @@ add_shortcode('rating_stack', 'plm_stack');
 function plm_rtable($atts, $content)
 {
 	extract(shortcode_atts(array(
-		'sprite' => '&#x2589;',
+		'sprite' => '',
 		'no_zero' => 'no',
 		'max' => '5',
 		),
@@ -196,6 +208,13 @@ function plm_rtable($atts, $content)
 		 'rating_table' 
 		 )
 	);
+
+// ** if sprite is not set, use the default.
+
+	if ($sprite == '') 
+	{
+		$sprite = '&#' . get_option('plm_default_rating_sprite') . ';';
+	}
 	
 // ** if max is not a number, reset it to 5.
 	if (!is_numeric($max)) {
@@ -245,7 +264,7 @@ add_shortcode('rating_table', 'plm_rtable');
 function plm_star_rating($atts, $content) {
 
 	extract(shortcode_atts(array(
-		'sprite' => '&#x2605;',
+		'sprite' => '',
 		'max' => '5'
 		),
 		 $atts, 
@@ -253,6 +272,13 @@ function plm_star_rating($atts, $content) {
 		 )
 	);
 
+// ** if sprite is not set, use the default.
+
+	if ($sprite == '') 
+	{
+		$sprite = '&#' . get_option('plm_default_star_sprite') . ';';
+	}
+	
 	$content = preg_replace('%(\d+)([:,\|\-\*#]+)(\d+)%', '$1/$3', $content); // Replace nonstandard separator characters with "/"
 
 	if (preg_match('*\d\/\d*', $content)) 
@@ -295,4 +321,32 @@ function plm_custom_quicktags() {
 
 // Hook into the 'admin_print_footer_scripts' action
 add_action( 'admin_print_footer_scripts', 'plm_custom_quicktags' );
+
+// ** Establish options in database.
+// **
+function plm_add_content_options() {
+
+	add_option('plm_default_rating_sprite', 'x2589', '', 'yes');
+	add_option('plm_default_star_sprite', 'x2605', '', 'yes');
+	add_option('plm_default_maximum', '5','','yes');
+}
+
+function plm_content_activate() {
+
+	plm_add_content_options();
+
+}
+
+register_activation_hook( __FILE__, 'plm_content_activate' ); 
+
+
+// ** temporarily reset options during development
+function plm_content_deactivate() {
+	delete_option('plm_default_rating_sprite');
+	delete_option('plm_default_star_sprite');
+	delete_option('plm_default_maximum');
+}
+
+register_deactivation_hook( __FILE__, 'plm_content_deactivate' ); 
+
 ?>
