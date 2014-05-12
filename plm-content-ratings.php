@@ -326,9 +326,9 @@ add_action( 'admin_print_footer_scripts', 'plm_custom_quicktags' );
 // **
 function plm_add_content_options() {
 
-	add_option('plm_default_rating_sprite', 'x2589', '', 'yes');
-	add_option('plm_default_star_sprite', 'x2605', '', 'yes');
-	add_option('plm_default_maximum', '5','','yes');
+	if ( !get_option( 'plm_default_rating_sprite' ) ) add_option('plm_default_rating_sprite', 'x2589', '', 'yes');
+	if ( !get_option( 'plm_default_star_sprite' ) ) add_option('plm_default_star_sprite', 'x2605', '', 'yes');
+	if ( !get_option( 'plm_default_maximum' ) ) add_option('plm_default_maximum', '5','','yes');
 }
 
 function plm_content_activate() {
@@ -338,15 +338,5 @@ function plm_content_activate() {
 }
 
 register_activation_hook( __FILE__, 'plm_content_activate' ); 
-
-
-// ** temporarily reset options during development
-function plm_content_deactivate() {
-	delete_option('plm_default_rating_sprite');
-	delete_option('plm_default_star_sprite');
-	delete_option('plm_default_maximum');
-}
-
-register_deactivation_hook( __FILE__, 'plm_content_deactivate' ); 
 
 ?>
